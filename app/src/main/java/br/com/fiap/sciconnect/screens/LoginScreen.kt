@@ -19,11 +19,12 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
 
 @Composable
 
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +69,9 @@ fun LoginScreen() {
 //                KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = {}) {
+            Button(onClick = {
+                navController.navigate("home")
+            }) {
                 Text(text="Entrar")
             }
 
