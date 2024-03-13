@@ -17,18 +17,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LetterAvatar(name:String){
+fun LetterAvatar(name:String,darkmode:Boolean){
     var letter = name.toCharArray()[0].uppercase()
     Box(
         modifier = Modifier
             .width(40.dp)
             .height(40.dp)
-            .background(Color(49,52,57), shape = RoundedCornerShape(8.dp)),
+            .background(
+                if(darkmode) Color(255,255,255) else Color(49,52,57),
+                shape = RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.Center
     ) {
         Text(
             fontSize = 25.sp,
-            color = Color.White,
+            color = if(darkmode) Color(49,52,57) else Color.White,
             text = letter,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold

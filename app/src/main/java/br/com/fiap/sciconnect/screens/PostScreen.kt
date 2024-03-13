@@ -36,11 +36,11 @@ import br.com.fiap.sciconnect.methods.Navigation
 
 
 @Composable
-fun PostScreen(navController: NavController){
+fun PostScreen(navController: NavController,darkmode:Boolean){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color(255, 255, 255))){
-        Header()
+        Header(darkmode = darkmode)
         val scroll = rememberScrollState()
         Column(
             modifier = Modifier
@@ -185,6 +185,6 @@ fun PostScreen(navController: NavController){
                 }
             }
         }
-        Navigation(navController = navController)
+        Navigation(navController = navController,darkmode = darkmode)
     }
 }

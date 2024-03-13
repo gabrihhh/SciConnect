@@ -1,6 +1,7 @@
 package br.com.fiap.sciconnect.methods
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,20 +13,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
 
 @Composable
-fun Navigation(navController:NavController){
+fun Navigation(navController:NavController,darkmode:Boolean){
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .align(alignment = Alignment.BottomStart),
+                .align(alignment = Alignment.BottomStart)
+                .background(
+                    if(darkmode) Color(49,52,57) else Color(255,255,255)
+                ),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             Box(
@@ -35,7 +40,9 @@ fun Navigation(navController:NavController){
                     .clickable {}
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.person),
+                    painter = painterResource(
+                        id = if(darkmode) R.drawable.persondark else R.drawable.person
+                    ),
                     contentDescription = "Person",
                     modifier = Modifier
                         .size(20.dp)
@@ -48,7 +55,9 @@ fun Navigation(navController:NavController){
                     .clickable {}
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.search),
+                    painter = painterResource(
+                        id = if(darkmode) R.drawable.searchdark else R.drawable.search
+                    ),
                     contentDescription = "Search",
                     modifier = Modifier
                         .size(20.dp)
@@ -63,7 +72,9 @@ fun Navigation(navController:NavController){
                     }
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.add),
+                    painter = painterResource(
+                        id = if(darkmode) R.drawable.adddark else R.drawable.add
+                    ),
                     contentDescription = "Add",
                     modifier = Modifier
                         .size(20.dp)
@@ -76,7 +87,9 @@ fun Navigation(navController:NavController){
                     .clickable {}
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.list),
+                    painter = painterResource(
+                        id = if(darkmode) R.drawable.listdark else R.drawable.list
+                    ),
                     contentDescription = "List",
                     modifier = Modifier
                         .size(20.dp)
@@ -89,7 +102,9 @@ fun Navigation(navController:NavController){
                     .clickable {}
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.home),
+                    painter = painterResource(
+                        id = if(darkmode) R.drawable.homedark else R.drawable.home
+                    ),
                     contentDescription = "Home",
                     modifier = Modifier
                         .size(20.dp)

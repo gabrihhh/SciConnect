@@ -24,7 +24,7 @@ import br.com.fiap.sciconnect.R
 
 @Composable
 
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController,darkmode:Boolean) {
     Box(
         modifier = Modifier
             .fillMaxSize()

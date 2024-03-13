@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,13 +28,14 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                    val darkmode = remember{ mutableStateOf(false)}
                     NavHost(
                         navController = navController,
                         startDestination = "login"
                     ){
-                        composable(route = "login"){ LoginScreen(navController) }
-                        composable(route = "home"){ HomeScreen(navController) }
-                        composable(route = "post"){ PostScreen(navController) }
+                        composable(route = "login"){ LoginScreen(navController,darkmode.value) }
+                        composable(route = "home"){ HomeScreen(navController,darkmode.value) }
+                        composable(route = "post"){ PostScreen(navController,darkmode.value) }
                     }
                 }
             }
