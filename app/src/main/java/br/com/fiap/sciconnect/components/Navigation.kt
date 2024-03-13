@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +21,7 @@ import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
 
 @Composable
-fun Navigation(navController:NavController,darkmode:Boolean){
+fun Navigation(navController:NavController,darkmode:MutableState<Boolean>){
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -29,7 +30,7 @@ fun Navigation(navController:NavController,darkmode:Boolean){
                 .height(100.dp)
                 .align(alignment = Alignment.BottomStart)
                 .background(
-                    if(darkmode) Color(49,52,57) else Color(255,255,255)
+                    if(darkmode.value) Color(49,52,57) else Color(255,255,255)
                 ),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
@@ -41,7 +42,7 @@ fun Navigation(navController:NavController,darkmode:Boolean){
             ) {
                 Image(
                     painter = painterResource(
-                        id = if(darkmode) R.drawable.persondark else R.drawable.person
+                        id = if(darkmode.value) R.drawable.persondark else R.drawable.person
                     ),
                     contentDescription = "Person",
                     modifier = Modifier
@@ -56,7 +57,7 @@ fun Navigation(navController:NavController,darkmode:Boolean){
             ) {
                 Image(
                     painter = painterResource(
-                        id = if(darkmode) R.drawable.searchdark else R.drawable.search
+                        id = if(darkmode.value) R.drawable.searchdark else R.drawable.search
                     ),
                     contentDescription = "Search",
                     modifier = Modifier
@@ -73,7 +74,7 @@ fun Navigation(navController:NavController,darkmode:Boolean){
             ) {
                 Image(
                     painter = painterResource(
-                        id = if(darkmode) R.drawable.adddark else R.drawable.add
+                        id = if(darkmode.value) R.drawable.adddark else R.drawable.add
                     ),
                     contentDescription = "Add",
                     modifier = Modifier
@@ -88,7 +89,7 @@ fun Navigation(navController:NavController,darkmode:Boolean){
             ) {
                 Image(
                     painter = painterResource(
-                        id = if(darkmode) R.drawable.listdark else R.drawable.list
+                        id = if(darkmode.value) R.drawable.listdark else R.drawable.list
                     ),
                     contentDescription = "List",
                     modifier = Modifier
@@ -103,7 +104,7 @@ fun Navigation(navController:NavController,darkmode:Boolean){
             ) {
                 Image(
                     painter = painterResource(
-                        id = if(darkmode) R.drawable.homedark else R.drawable.home
+                        id = if(darkmode.value) R.drawable.homedark else R.drawable.home
                     ),
                     contentDescription = "Home",
                     modifier = Modifier

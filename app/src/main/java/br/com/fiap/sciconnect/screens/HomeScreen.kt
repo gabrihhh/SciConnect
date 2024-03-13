@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -37,7 +38,7 @@ import br.com.fiap.sciconnect.components.LetterAvatar
 import br.com.fiap.sciconnect.components.Navigation
 
 @Composable
-fun HomeScreen(navController: NavController,darkmode:Boolean){
+fun HomeScreen(navController: NavController,darkmode: MutableState<Boolean>){
     Box(modifier = Modifier
         .fillMaxSize()
     ){
@@ -73,14 +74,14 @@ fun mockImage(){
 }
 
 @Composable
-fun Post(user:String,title:String,time:String,Description:String? = null,arquive:String? = null,darkmode: Boolean){
+fun Post(user:String,title:String,time:String,Description:String? = null,arquive:String? = null,darkmode: MutableState<Boolean>){
     Box(
         modifier = Modifier
             .padding(bottom = 1.dp)
             .fillMaxWidth()
             .height(150.dp)
             .background(
-                if(darkmode) Color(49,52,57) else Color(255, 255, 255)
+                if(darkmode.value) Color(49,52,57) else Color(255, 255, 255)
             )
     ){
         Box(modifier = Modifier.padding(10.dp)){
@@ -91,12 +92,12 @@ fun Post(user:String,title:String,time:String,Description:String? = null,arquive
                     Column() {
                         Text(
                             text = user,
-                            color = if(darkmode) Color(255,255,255) else Color(0,0,0),
+                            color = if(darkmode.value) Color(255,255,255) else Color(0,0,0),
                             fontSize = 16.sp
                         )
                         Text(
                             text = time,
-                            color = if(darkmode) Color(255,255,255) else Color(0,0,0),
+                            color = if(darkmode.value) Color(255,255,255) else Color(0,0,0),
                             fontSize = 8.sp
                         )
                     }
@@ -106,7 +107,7 @@ fun Post(user:String,title:String,time:String,Description:String? = null,arquive
                     text = title,
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp,
-                    color = if(darkmode) Color(255,255,255) else Color(0,0,0)
+                    color = if(darkmode.value) Color(255,255,255) else Color(0,0,0)
                 )
             }
         }

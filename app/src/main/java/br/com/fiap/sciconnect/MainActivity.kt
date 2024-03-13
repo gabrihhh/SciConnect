@@ -33,9 +33,9 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = "login"
                     ){
-                        composable(route = "login"){ LoginScreen(navController,darkmode.value) }
-                        composable(route = "home"){ HomeScreen(navController,darkmode.value) }
-                        composable(route = "post"){ PostScreen(navController,darkmode.value) }
+                        composable(route = "login"){ LoginScreen(navController,darkmode) }
+                        composable(route = "home"){ HomeScreen(navController,darkmode) }
+                        composable(route = "post"){ PostScreen(navController,darkmode) }
                     }
                 }
             }

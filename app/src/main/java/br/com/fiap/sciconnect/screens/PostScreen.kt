@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +37,7 @@ import br.com.fiap.sciconnect.components.Navigation
 
 
 @Composable
-fun PostScreen(navController: NavController,darkmode:Boolean){
+fun PostScreen(navController: NavController,darkmode:MutableState<Boolean>){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color(255, 255, 255))){

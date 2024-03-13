@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import br.com.fiap.sciconnect.R
 
 @Composable
-fun Header(darkmode:Boolean){
+fun Header(darkmode:MutableState<Boolean>){
     Box() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -29,7 +29,7 @@ fun Header(darkmode:Boolean){
                 .fillMaxWidth()
                 .height(100.dp)
                 .background(
-                    if(darkmode){
+                    if(darkmode.value){
                         Color(49,52,57)
                     }else{
                         Color(255,255,255)
@@ -45,7 +45,7 @@ fun Header(darkmode:Boolean){
                 Image(
 
                     painter = painterResource(
-                           id = if (darkmode) R.drawable.minilogodark else R.drawable.minilogo
+                           id = if (darkmode.value) R.drawable.minilogodark else R.drawable.minilogo
                     ),
                     contentDescription = "Logo",
                     Modifier.size(20.dp)
@@ -57,7 +57,7 @@ fun Header(darkmode:Boolean){
                 ) {
                     Image(
                         painter = painterResource(
-                            id = if(darkmode) R.drawable.helpdark else R.drawable.help
+                            id = if(darkmode.value) R.drawable.helpdark else R.drawable.help
                         ),
                         contentDescription = "Help",
                         Modifier.size(20.dp)
@@ -65,7 +65,7 @@ fun Header(darkmode:Boolean){
                     Spacer(modifier = Modifier.width(20.dp))
                     Image(
                         painter = painterResource(
-                            id = if(darkmode) R.drawable.alarmdark else R.drawable.alarm
+                            id = if(darkmode.value) R.drawable.alarmdark else R.drawable.alarm
                         ),
                         contentDescription = "Alarm",
                         Modifier.size(20.dp)
