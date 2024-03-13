@@ -32,7 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
+import br.com.fiap.sciconnect.methods.Header
 import br.com.fiap.sciconnect.methods.LetterAvatar
+import br.com.fiap.sciconnect.methods.Navigation
 
 @Composable
 fun HomeScreen(navController: NavController,darkMode:Boolean = false){
@@ -40,46 +42,13 @@ fun HomeScreen(navController: NavController,darkMode:Boolean = false){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
-            if(darkMode.value){
-                Color(49,52,57)
-            }else{
+            if (darkMode.value) {
+                Color(49, 52, 57)
+            } else {
                 Color(255, 255, 255)
             }
         )){
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-        ){
-            Box(
-                modifier= Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)){
-                Image(
-                    painter = painterResource(id = R.drawable.minilogo),
-                    contentDescription = "Logo",
-                    Modifier.size(20.dp)
-                )
-                Row(
-                    modifier= Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ){
-                    Image(
-                        painter = painterResource(id = R.drawable.help),
-                        contentDescription = "Help",
-                        Modifier.size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(20.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.alarm),
-                        contentDescription = "Alarm",
-                        Modifier.size(20.dp)
-                    )
-                }
-            }
-        }
+        Header()
         val scroll = rememberScrollState()
         Column(
             modifier = Modifier
@@ -94,82 +63,7 @@ fun HomeScreen(navController: NavController,darkMode:Boolean = false){
             Post(user = "gabriel", title = "teste do post",time = "Ter 15:08")
             Post(user = "matheus", title = "olha lá",time = "Qua 15:08")
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-                .align(alignment = Alignment.BottomStart),
-            horizontalArrangement = Arrangement.SpaceAround
-        ){
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.person),
-                    contentDescription = "Person",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.search),
-                    contentDescription = "Search",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {
-                        navController.navigate("post")
-                    }
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.add),
-                    contentDescription = "Add",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.list),
-                    contentDescription = "List",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.home),
-                    contentDescription = "Home",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-        }
+        Navigation(navController)
     }
 }
 
