@@ -100,7 +100,7 @@ fun Navigation(navController:NavController,darkmode:MutableState<Boolean>){
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .size(40.dp)
-                    .clickable {}
+                    .clickable {navController.navigate("home")}
             ) {
                 Image(
                     painter = painterResource(

@@ -31,6 +31,7 @@ import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,30 +45,33 @@ import br.com.fiap.sciconnect.model.Post
 
 
 @Composable
-fun PostScreen(navController: NavController){
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(Color(255, 255, 255))){
+fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(255, 255, 255))
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-        ){
+        ) {
             Box(
-                modifier= Modifier
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)){
+                    .padding(horizontal = 20.dp)
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.minilogo),
                     contentDescription = "Logo",
                     Modifier.size(20.dp)
                 )
                 Row(
-                    modifier= Modifier
+                    modifier = Modifier
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
-                ){
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.help),
                         contentDescription = "Help",
@@ -83,6 +87,15 @@ fun PostScreen(navController: NavController){
             }
         }
         val scroll = rememberScrollState()
+        var titulo = remember {
+            mutableStateOf("")
+        }
+        var disciplina = remember {
+            mutableStateOf("")
+        }
+        var descricao = remember {
+            mutableStateOf("")
+        }
         Column(
             modifier = Modifier
                 .padding(vertical = 100.dp)
@@ -285,7 +298,12 @@ fun PostScreen(navController: NavController){
                             modifier = Modifier
                                 //.size(40.dp)
                                 .clickable {
-                                    val post = Post(id = 0, titulo = titulo.value, disciplina= disciplina.value, descricao = descricao.value)
+                                    val post = Post(
+                                        id = 0,
+                                        titulo = titulo.value,
+                                        disciplina = disciplina.value,
+                                        descricao = descricao.value
+                                    )
                                     postRepository.salvar(post)
                                 }
                         ) {
@@ -319,85 +337,84 @@ fun PostScreen(navController: NavController){
             }
         }
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-                .align(alignment = Alignment.BottomStart),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.person),
-                    contentDescription = "Person",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.search),
-                    contentDescription = "Search",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {
-                        navController.navigate("post")
-                    }
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.add),
-                    contentDescription = "Add",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.list),
-                    contentDescription = "List",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {
-                        navController.navigate("home")
-                    }
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.home),
-                    contentDescription = "Home",
-                    modifier = Modifier
-                        .size(20.dp)
-                )
-            }
-        }
-        //}
-        //Navigation(navController = navController,darkmode = darkmode)
+//        Row(
+//            verticalAlignment = Alignment.CenterVertically,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(100.dp)
+//                .align(alignment = Alignment.BottomStart),
+//            horizontalArrangement = Arrangement.SpaceAround
+//        ) {
+//            Box(
+//                contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clickable {}
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.person),
+//                    contentDescription = "Person",
+//                    modifier = Modifier
+//                        .size(20.dp)
+//                )
+//            }
+//            Box(
+//                contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clickable {}
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.search),
+//                    contentDescription = "Search",
+//                    modifier = Modifier
+//                        .size(20.dp)
+//                )
+//            }
+//            Box(
+//                contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clickable {
+//                        navController.navigate("post")
+//                    }
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.add),
+//                    contentDescription = "Add",
+//                    modifier = Modifier
+//                        .size(20.dp)
+//                )
+//            }
+//            Box(
+//                contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clickable {}
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.list),
+//                    contentDescription = "List",
+//                    modifier = Modifier
+//                        .size(20.dp)
+//                )
+//            }
+//            Box(
+//                contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clickable {
+//                        navController.navigate("home")
+//                    }
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.home),
+//                    contentDescription = "Home",
+//                    modifier = Modifier
+//                        .size(20.dp)
+//                )
+//            }
+//        }
+        Navigation(navController = navController, darkmode = darkmode)
     }
 }

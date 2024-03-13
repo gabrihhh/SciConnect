@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.database.repository.PostRepository
-import br.com.fiap.sciconnect.methods.LetterAvatar
 import br.com.fiap.sciconnect.model.Post
 import br.com.fiap.sciconnect.components.Header
+import br.com.fiap.sciconnect.components.LetterAvatar
 import br.com.fiap.sciconnect.components.Navigation
 
 @Composable
@@ -67,98 +67,6 @@ fun mockImage(){
     )
 }
 
-//@Composable
-//fun Post(
-//    user: String,
-//    title: String,
-//    time: String,
-//    Description: String? = null,
-//    arquive: String? = null
-//) {
-//    Box(
-//        modifier = Modifier
-//            .padding(bottom = 5.dp)
-//            .fillMaxWidth()
-//            .height(150.dp)
-//            .background(Color(255, 255, 255))
-//    ) {
-//        Box(modifier = Modifier.padding(10.dp)) {
-//            Column() {
-//                Row() {
-//                    LetterAvatar(name = user)
-//                    Spacer(modifier = Modifier.width(10.dp))
-//                    Column() {
-//                        Text(
-//                            text = user,
-//                            color = Color(0, 0, 0),
-//                            fontSize = 16.sp
-//                        )
-//                        Text(
-//                            text = time,
-//                            color = Color(0, 0, 0),
-//                            fontSize = 8.sp
-//                        )
-//                    }
-//                }
-//                Spacer(modifier = Modifier.height(20.dp))
-//                Text(
-//                    text = title,
-//                    fontWeight = FontWeight.Bold,
-//                    fontSize = 14.sp,
-//                    color = Color(0, 0, 0)
-//                )
-//            }
-//        }
-//    }
-//}
-//
-//@Composable
-//fun PostList(posts: List<Post>) {
-//    for (post in posts) {
-//        Box(
-//            modifier = Modifier
-//                .padding(bottom = 5.dp)
-//                .fillMaxWidth()
-//                .height(150.dp)
-//                .background(Color(255, 255, 255))
-//        ) {
-//            Box(modifier = Modifier.padding(10.dp)) {
-//                Column() {
-//                    Row() {
-//                        LetterAvatar(name = post.user)
-//                        Spacer(modifier = Modifier.width(10.dp))
-//                        Column() {
-//                            Text(
-//                                text = post.user,
-//                                color = Color(0, 0, 0),
-//                                fontSize = 16.sp
-//                            )
-//                            Text(
-//                                text = post.data,
-//                                color = Color(0, 0, 0),
-//                                fontSize = 10.sp
-//                            )
-//                        }
-//                    }
-//                    Spacer(modifier = Modifier.height(20.dp))
-//                    Text(
-//                        text = post.titulo,
-//                        fontWeight = FontWeight.Bold,
-//                        fontSize = 14.sp,
-//                        color = Color(0, 0, 0)
-//                    )
-//                    Spacer(modifier = Modifier.height(20.dp))
-//                    Text(
-//                        text = post.descricao,
-//                        fontWeight = FontWeight.Medium,
-//                        fontSize = 12.sp,
-//                        color = Color(0, 0, 0)
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
 @Composable
 fun PostLazyList(posts: List<Post>, darkmode: MutableState<Boolean>) {
     LazyColumn() {
@@ -178,12 +86,12 @@ fun PostLazyList(posts: List<Post>, darkmode: MutableState<Boolean>) {
                             Column() {
                                 Text(
                                     text = post.user,
-                                    color = if(darkmode.value) Color(49,52,57) else Color(255, 255, 255),
+                                    color = if(!darkmode.value) Color(49,52,57) else Color(255, 255, 255),
                                     fontSize = 16.sp
                                 )
                                 Text(
                                     text = post.data,
-                                    color = if(darkmode.value) Color(49,52,57) else Color(255, 255, 255),
+                                    color = if(!darkmode.value) Color(49,52,57) else Color(255, 255, 255),
                                     fontSize = 10.sp
                                 )
                             }
@@ -193,14 +101,14 @@ fun PostLazyList(posts: List<Post>, darkmode: MutableState<Boolean>) {
                             text = post.titulo,
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp,
-                            color = if(darkmode.value) Color(49,52,57) else Color(255, 255, 255)
+                            color = if(!darkmode.value) Color(49,52,57) else Color(255, 255, 255)
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         Text(
                             text = post.descricao,
                             fontWeight = FontWeight.Medium,
                             fontSize = 12.sp,
-                            color = if(darkmode.value) Color(49,52,57) else Color(255, 255, 255)
+                            color = if(!darkmode.value) Color(49,52,57) else Color(255, 255, 255)
                         )
                     }
                 }
