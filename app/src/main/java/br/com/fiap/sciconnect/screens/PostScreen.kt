@@ -21,6 +21,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,17 @@ import androidx.navigation.NavController
 
 @Composable
 fun PostScreen(navController: NavController){
+
+    var titulo = remember {
+        mutableStateOf("")
+    }
+    var disciplina = remember {
+        mutableStateOf("")
+    }
+    var descricao = remember {
+        mutableStateOf("")
+    }
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color(255, 255, 255))){
@@ -75,13 +88,18 @@ fun PostScreen(navController: NavController){
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp))
             Spacer(modifier = Modifier.height(5.dp))
-            OutlinedTextField(value = "", onValueChange = {},colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color(0,0,0),
-                focusedBorderColor = Color(49,52,57),
-                unfocusedBorderColor = Color(49,52,57)
-            ),modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp))
+            OutlinedTextField(
+                value = titulo.value,
+                onValueChange = {newValue -> titulo.value = newValue},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color(0, 0, 0),
+                    focusedBorderColor = Color(49, 52, 57),
+                    unfocusedBorderColor = Color(49, 52, 57)
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+            )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
                 color =  Color(49,52,57),
@@ -92,13 +110,18 @@ fun PostScreen(navController: NavController){
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp))
             Spacer(modifier = Modifier.height(5.dp))
-            OutlinedTextField(value = "", onValueChange = {},colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color(0,0,0),
-                focusedBorderColor = Color(49,52,57),
-                unfocusedBorderColor = Color(49,52,57)
-            ),modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp))
+            OutlinedTextField(
+                value = disciplina.value,
+                onValueChange = {newValue -> disciplina.value = newValue},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color(0, 0, 0),
+                    focusedBorderColor = Color(49, 52, 57),
+                    unfocusedBorderColor = Color(49, 52, 57)
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+            )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
                 color =  Color(49,52,57),
@@ -109,14 +132,19 @@ fun PostScreen(navController: NavController){
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp))
             Spacer(modifier = Modifier.height(5.dp))
-            OutlinedTextField(value = "", onValueChange = {},colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color(0,0,0),
-                focusedBorderColor = Color(49,52,57),
-                unfocusedBorderColor = Color(49,52,57)
-            ),modifier = Modifier
-                .fillMaxWidth()
-                .height(130.dp)
-                .padding(horizontal = 10.dp))
+            OutlinedTextField(
+                value = descricao.value,
+                onValueChange = {newValue -> descricao.value = newValue},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color(0, 0, 0),
+                    focusedBorderColor = Color(49, 52, 57),
+                    unfocusedBorderColor = Color(49, 52, 57)
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(130.dp)
+                    .padding(horizontal = 10.dp)
+            )
             Spacer(modifier = Modifier.height(30.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
