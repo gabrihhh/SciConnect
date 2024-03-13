@@ -12,7 +12,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.fiap.sciconnect.screens.LoginScreen
 import br.com.fiap.sciconnect.screens.HomeScreen
-import br.com.fiap.sciconnect.screens.Post
 import br.com.fiap.sciconnect.screens.PostScreen
 import br.com.fiap.sciconnect.ui.theme.SciConnectTheme
 
