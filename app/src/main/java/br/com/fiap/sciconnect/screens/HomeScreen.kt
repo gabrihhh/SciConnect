@@ -1,5 +1,7 @@
 package br.com.fiap.sciconnect.screens
 
+import android.widget.ImageView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,24 +16,36 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.com.fiap.sciconnect.R
 import br.com.fiap.sciconnect.methods.LetterAvatar
 
 @Composable
-fun HomeScreen(navController: NavController){
-
+fun HomeScreen(navController: NavController,darkMode:Boolean = false){
+    var darkMode = remember{ mutableStateOf(darkMode)}
     Box(modifier = Modifier
         .fillMaxSize()
-        .background(Color(255, 255, 255))){
+        .background(
+            if(darkMode.value){
+                Color(49,52,57)
+            }else{
+                Color(255, 255, 255)
+            }
+        )){
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -42,15 +56,27 @@ fun HomeScreen(navController: NavController){
                 modifier= Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)){
-                    mockImage()
+                Image(
+                    painter = painterResource(id = R.drawable.minilogo),
+                    contentDescription = "Logo",
+                    Modifier.size(20.dp)
+                )
                 Row(
                     modifier= Modifier
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ){
-                    mockImage()
+                    Image(
+                        painter = painterResource(id = R.drawable.help),
+                        contentDescription = "Help",
+                        Modifier.size(20.dp)
+                    )
                     Spacer(modifier = Modifier.width(20.dp))
-                    mockImage()
+                    Image(
+                        painter = painterResource(id = R.drawable.alarm),
+                        contentDescription = "Alarm",
+                        Modifier.size(20.dp)
+                    )
                 }
             }
         }
@@ -79,49 +105,69 @@ fun HomeScreen(navController: NavController){
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.LightGray)
+                    .size(40.dp)
                     .clickable {}
             ) {
-                mockImage()
+                Image(
+                    painter = painterResource(id = R.drawable.person),
+                    contentDescription = "Person",
+                    modifier = Modifier
+                        .size(20.dp)
+                )
             }
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.LightGray)
+                    .size(40.dp)
                     .clickable {}
             ) {
-                mockImage()
+                Image(
+                    painter = painterResource(id = R.drawable.search),
+                    contentDescription = "Search",
+                    modifier = Modifier
+                        .size(20.dp)
+                )
             }
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.LightGray)
+                    .size(40.dp)
                     .clickable {
                         navController.navigate("post")
                     }
             ) {
-                mockImage()
+                Image(
+                    painter = painterResource(id = R.drawable.add),
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .size(20.dp)
+                )
             }
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.LightGray)
+                    .size(40.dp)
                     .clickable {}
             ) {
-                mockImage()
+                Image(
+                    painter = painterResource(id = R.drawable.list),
+                    contentDescription = "List",
+                    modifier = Modifier
+                        .size(20.dp)
+                )
             }
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.LightGray)
+                    .size(40.dp)
                     .clickable {}
             ) {
-                mockImage()
+                Image(
+                    painter = painterResource(id = R.drawable.home),
+                    contentDescription = "Home",
+                    modifier = Modifier
+                        .size(20.dp)
+                )
             }
         }
     }
