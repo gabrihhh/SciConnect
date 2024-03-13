@@ -1,4 +1,4 @@
-package br.com.fiap.sciconnect.methods
+package br.com.fiap.sciconnect.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

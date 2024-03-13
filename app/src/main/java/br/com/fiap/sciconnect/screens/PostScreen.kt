@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
-import br.com.fiap.sciconnect.methods.Header
-import br.com.fiap.sciconnect.methods.Navigation
+import br.com.fiap.sciconnect.components.Header
+import br.com.fiap.sciconnect.components.Navigation
 
 
 @Composable
