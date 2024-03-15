@@ -16,5 +16,17 @@ class PostRepository (context: Context){
         return db.listarPosts()
     }
 
+    fun listarAwaitingPosts(): List<Post>{
+        return db.listarAwaitingPosts()
+    }
+
+    fun atualizarPost(post: Post): Int {
+        return db.atualizarPost(post = post)
+    }
+
+    fun excluirPost(post: Post): Int {
+        return db.excluirPost(post = post)
+    }
+
 
 }

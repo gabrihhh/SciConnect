@@ -45,7 +45,7 @@ import br.com.fiap.sciconnect.model.Post
 
 
 @Composable
-fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>) {
+fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, admin: MutableState<Boolean>, user: MutableState<String>) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -300,6 +300,7 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>) {
                                 .clickable {
                                     val post = Post(
                                         id = 0,
+                                        user = user.value,
                                         titulo = titulo.value,
                                         disciplina = disciplina.value,
                                         descricao = descricao.value
@@ -415,6 +416,6 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>) {
 //                )
 //            }
 //        }
-        Navigation(navController = navController, darkmode = darkmode)
+        Navigation(navController = navController, darkmode = darkmode, admin = admin)
     }
 }

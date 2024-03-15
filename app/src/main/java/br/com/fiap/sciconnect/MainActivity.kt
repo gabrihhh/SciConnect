@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.fiap.sciconnect.screens.AwaitScreen
 import br.com.fiap.sciconnect.screens.LoginScreen
 import br.com.fiap.sciconnect.screens.HomeScreen
 import br.com.fiap.sciconnect.screens.PostScreen
@@ -28,13 +29,20 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val darkmode = remember{ mutableStateOf(false)}
+                    var admin = remember {
+                        mutableStateOf(false)
+                    }
+                    var user = remember {
+                        mutableStateOf("admin")
+                    }
                     NavHost(
                         navController = navController,
                         startDestination = "login"
                     ){
-                        composable(route = "login"){ LoginScreen(navController,darkmode) }
-                        composable(route = "home"){ HomeScreen(navController,darkmode) }
-                        composable(route = "post"){ PostScreen(navController,darkmode) }
+                        composable(route = "login"){ LoginScreen(navController,darkmode, admin, user) }
+                        composable(route = "home"){ HomeScreen(navController,darkmode, admin) }
+                        composable(route = "post"){ PostScreen(navController,darkmode, admin, user) }
+                        composable(route = "await"){ AwaitScreen(navController, darkmode, admin)}
                     }
                 }
             }

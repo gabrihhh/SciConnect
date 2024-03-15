@@ -9,6 +9,7 @@ data class Post(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
     var user: String = "admin",
+    var verified: Boolean = false,
     var data: String = now().toString(),
     var titulo: String = "",
     var disciplina: String = "",
