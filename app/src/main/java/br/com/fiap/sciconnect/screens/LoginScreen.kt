@@ -1,4 +1,5 @@
 package br.com.fiap.sciconnect.screens
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,15 +27,19 @@ import br.com.fiap.sciconnect.R
 
 @Composable
 
-fun LoginScreen(navController: NavController,darkmode: MutableState<Boolean>) {
+fun LoginScreen(
+    navController: NavController,
+    darkmode: MutableState<Boolean>,
+    admin: MutableState<Boolean>, user: MutableState<String>
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0, 0, 0))
-            .clickable{
+            .clickable {
                 darkmode.value = !darkmode.value
             }
-    ){
+    ) {
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = "Mulher Estudando",
@@ -45,7 +50,10 @@ fun LoginScreen(navController: NavController,darkmode: MutableState<Boolean>) {
                 .scale(1.1f)
 
         )
-        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Spacer(modifier = Modifier.height(80.dp))
             Image(
                 painter = painterResource(id = R.drawable.logo),
@@ -58,8 +66,8 @@ fun LoginScreen(navController: NavController,darkmode: MutableState<Boolean>) {
             }
             TextField(
                 value = login.value,
-                onValueChange = {newValue ->login.value = newValue},
-                placeholder = { Text(text = "Login",color=Color(128,128,128)) },
+                onValueChange = { newValue -> login.value = newValue },
+                placeholder = { Text(text = "Login", color = Color(128, 128, 128)) },
                 shape = RoundedCornerShape(8.dp),
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -68,16 +76,20 @@ fun LoginScreen(navController: NavController,darkmode: MutableState<Boolean>) {
             }
             TextField(
                 value = password.value,
-                onValueChange = {newValue -> password.value = newValue},
-                placeholder = {Text(text = "Senha",color=Color(128,128,128))},
+                onValueChange = { newValue -> password.value = newValue },
+                placeholder = { Text(text = "Senha", color = Color(128, 128, 128)) },
                 shape = RoundedCornerShape(8.dp),
 //                KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = Modifier.height(30.dp))
             Button(onClick = {
+                if (login.value == "admin") {
+                    admin.value = true
+                }
+                user.value = login.value
                 navController.navigate("home")
             }) {
-                Text(text="Entrar")
+                Text(text = "Entrar")
             }
 
         }

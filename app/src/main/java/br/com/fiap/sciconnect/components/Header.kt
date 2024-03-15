@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -21,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import br.com.fiap.sciconnect.R
 
 @Composable
-fun Header(darkmode:MutableState<Boolean>){
+fun Header(darkmode:MutableState<Boolean>, admin: MutableState<Boolean>){
     Box() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -29,10 +30,10 @@ fun Header(darkmode:MutableState<Boolean>){
                 .fillMaxWidth()
                 .height(100.dp)
                 .background(
-                    if(darkmode.value){
-                        Color(49,52,57)
-                    }else{
-                        Color(255,255,255)
+                    if (darkmode.value) {
+                        Color(49, 52, 57)
+                    } else {
+                        Color(255, 255, 255)
                     }
                 )
 
@@ -55,6 +56,11 @@ fun Header(darkmode:MutableState<Boolean>){
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
+                    // vou mexer aqui
+                    
+                    Text(text = if (admin.value == true) {"admin"} else {""})
+                    Spacer(modifier = Modifier.width(20.dp))
+                    // até aqui
                     Image(
                         painter = painterResource(
                             id = if(darkmode.value) R.drawable.helpdark else R.drawable.help
