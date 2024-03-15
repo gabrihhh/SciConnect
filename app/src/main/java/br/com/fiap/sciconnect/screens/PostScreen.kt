@@ -45,7 +45,12 @@ import br.com.fiap.sciconnect.model.Post
 
 
 @Composable
-fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, admin: MutableState<Boolean>, user: MutableState<String>) {
+fun PostScreen(
+    navController: NavController,
+    darkmode: MutableState<Boolean>,
+    admin: MutableState<Boolean>,
+    user: MutableState<String>
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -322,7 +327,11 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                     Column(
                         //verticalArrangement = Arrangement.Center,
                         modifier = Modifier
-                            .background(color = if (darkmode.value) Color.White else Color(0xFF313439) )
+                            .background(
+                                color = if (darkmode.value) Color.White else Color(
+                                    0xFF313439
+                                )
+                            )
                     ) {
 
                         Box(
@@ -330,14 +339,17 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                             modifier = Modifier
                                 //.size(40.dp)
                                 .clickable {
-                                    val post = Post(
-                                        id = 0,
-                                        user = user.value,
-                                        titulo = titulo.value,
-                                        disciplina = disciplina.value,
-                                        descricao = descricao.value
-                                    )
-                                    postRepository.salvar(post)
+                                    if (titulo.value != "" && disciplina.value != "" && descricao.value != "") {
+                                        val post = Post(
+                                            id = 0,
+                                            user = user.value,
+                                            titulo = titulo.value,
+                                            disciplina = disciplina.value,
+                                            descricao = descricao.value
+                                        )
+                                        postRepository.salvar(post)
+                                    }
+                                    navController.navigate("home")
                                 }
                         ) {
                             Row(
