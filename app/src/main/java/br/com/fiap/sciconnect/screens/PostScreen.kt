@@ -194,7 +194,15 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            mockImage()
+                            Image(
+                                painter = painterResource(
+                                    id = if (darkmode.value) R.drawable.zip else R.drawable.zipdark
+                                ),
+                                contentDescription = "Add",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
+                            )
                             Spacer(modifier = Modifier.width(5.dp))
                             Text(
                                 text = "Adicionar Zip",
@@ -216,7 +224,15 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            mockImage()
+                            Image(
+                                painter = painterResource(
+                                    id = if (darkmode.value) R.drawable.pdf else R.drawable.pdfdark
+                                ),
+                                contentDescription = "Add",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
+                            )
                             Spacer(modifier = Modifier.width(5.dp))
                             Text(
                                 text = "Adicionar PDF",
@@ -239,7 +255,15 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            mockImage()
+                            Image(
+                                painter = painterResource(
+                                    id = if (darkmode.value) R.drawable.addimg else R.drawable.addimgdark
+                                ),
+                                contentDescription = "Add",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
+                            )
                             Spacer(modifier = Modifier.width(5.dp))
                             Text(
                                 text = "Adicionar Imagem",
@@ -261,7 +285,15 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            mockImage()
+                            Image(
+                                painter = painterResource(
+                                    id = if (darkmode.value) R.drawable.etcdark else R.drawable.etc
+                                ),
+                                contentDescription = "Add",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
+                            )
                             Spacer(modifier = Modifier.width(5.dp))
                             Text(
                                 text = "Adicionar Outros",
@@ -290,7 +322,7 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
                     Column(
                         //verticalArrangement = Arrangement.Center,
                         modifier = Modifier
-                            .background(color = Color(0xFF313439))
+                            .background(color = if (darkmode.value) Color.White else Color(0xFF313439) )
                     ) {
 
                         Box(
@@ -324,10 +356,13 @@ fun PostScreen(navController: NavController, darkmode: MutableState<Boolean>, ad
 
                                 )
                                 Image(
-                                    painter = painterResource(id = R.drawable.add),
-                                    contentDescription = "add",
+                                    painter = painterResource(
+                                        id = if (darkmode.value) R.drawable.arrowrightdark else R.drawable.arrowright
+                                    ),
+                                    contentDescription = "Add",
                                     modifier = Modifier
-                                        .size(20.dp)
+                                        .size(40.dp)
+                                        .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
                                 )
                             }
                         }
