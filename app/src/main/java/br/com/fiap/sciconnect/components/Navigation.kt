@@ -24,13 +24,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
+import br.com.fiap.sciconnect.model.User
+
 //import br.com.fiap.sciconnect.database.repository.PostRepository
 
 @Composable
 fun Navigation(
     navController: NavController,
     darkmode: MutableState<Boolean>,
-    admin: MutableState<Boolean>
+    admin: MutableState<Boolean>,
+    user: MutableState<User?>
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -91,37 +94,22 @@ fun Navigation(
                         .size(20.dp)
                 )
             }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {navController.navigate("await")}
-            ) {
-//                val context = LocalContext.current
-//                //val postRepository = PostRepository(context)
-//                var listaAwaitingPosts = remember {
-//                    mutableStateOf(postRepository.listarAwaitingPosts())
-//                }
-//                if(listaAwaitingPosts.value.size > 0 && admin.value == true){
-//                    Image(
-//                        painter = painterResource(
-//                            id = if (darkmode.value) R.drawable.listdark else R.drawable.list_notification
-//                        ),
-//                        contentDescription = "List",
-//                        modifier = Modifier
-//                            .size(28.dp)
-//                    )
-//                }else{
-//                    Image(
-//                        painter = painterResource(
-//                            id = if (darkmode.value) R.drawable.listdark else R.drawable.list
-//                        ),
-//                        contentDescription = "List",
-//                        modifier = Modifier
-//                            .size(20.dp)
-//                    )
-//                }
-
+            if(user.value!!.tipoUsuario == "colaborador"){
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {navController.navigate("await")}
+                ) {
+                    Image(
+                        painter = painterResource(
+                            id = if (darkmode.value) R.drawable.listdark else R.drawable.list
+                        ),
+                        contentDescription = "List",
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                }
             }
             Box(
                 contentAlignment = Alignment.Center,
