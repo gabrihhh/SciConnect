@@ -63,7 +63,7 @@ fun HomeScreen(
         ) {
             //PostLazyList(listaPosts.value, darkmode, postRepository, navController)
         }
-        Navigation(navController, darkmode = darkmode, admin = admin)
+        Navigation(navController, darkmode = darkmode, admin = admin,user = user)
     }
 }
 

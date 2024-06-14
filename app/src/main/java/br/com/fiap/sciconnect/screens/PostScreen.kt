@@ -275,6 +275,6 @@ fun PostScreen(
                 }
             }
         }
-        Navigation(navController = navController, darkmode = darkmode, admin = admin)
+        Navigation(navController = navController, darkmode = darkmode, admin = admin, user = user)
     }
 }

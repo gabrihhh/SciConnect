@@ -24,13 +24,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
+import br.com.fiap.sciconnect.model.User
+
 //import br.com.fiap.sciconnect.database.repository.PostRepository
 
 @Composable
 fun Navigation(
     navController: NavController,
     darkmode: MutableState<Boolean>,
-    admin: MutableState<Boolean>
+    admin: MutableState<Boolean>,
+    user: MutableState<User?>
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -91,12 +94,13 @@ fun Navigation(
                         .size(20.dp)
                 )
             }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {navController.navigate("await")}
-            ) {
+            if(user.value!!.tipoUsuario === "colaborador"){
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {navController.navigate("await")}
+                ) {
 //                val context = LocalContext.current
 //                //val postRepository = PostRepository(context)
 //                var listaAwaitingPosts = remember {
@@ -122,6 +126,7 @@ fun Navigation(
 //                    )
 //                }
 
+                }
             }
             Box(
                 contentAlignment = Alignment.Center,

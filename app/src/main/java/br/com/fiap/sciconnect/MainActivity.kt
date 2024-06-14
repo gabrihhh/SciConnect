@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = "login"){ LoginScreen(navController,darkmode, admin, user) }
                         composable(route = "home"){ HomeScreen(navController,darkmode, admin, user) }
                         composable(route = "post"){ PostScreen(navController,darkmode, admin, user) }
-                        composable(route = "await"){ AwaitScreen(navController, darkmode, admin)}
+                        composable(route = "await"){ AwaitScreen(navController, darkmode, admin,user)}
                         composable(route = "register"){ RegisterScreen(navController)}
                     }
                 }
