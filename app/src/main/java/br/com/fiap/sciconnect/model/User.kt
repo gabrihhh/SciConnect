@@ -11,3 +11,8 @@ data class User(
     var tipoUsuario: String = "",
     var ultimoLogin: String = now().toString()
 )
+
+data class UserLogin(
+    var login: String = "",
+    var senha: String = ""
+)
