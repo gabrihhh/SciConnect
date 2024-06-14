@@ -1,5 +1,6 @@
 package br.com.fiap.sciconnect.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,13 +37,20 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
 import br.com.fiap.sciconnect.components.Navigation
+import br.com.fiap.sciconnect.model.Documento
+import br.com.fiap.sciconnect.model.User
+import br.com.fiap.sciconnect.model.UserLogin
+import br.com.fiap.sciconnect.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
 fun PostScreen(
     navController: NavController,
     darkmode: MutableState<Boolean>,
     admin: MutableState<Boolean>,
-    user: MutableState<String>
+    user: MutableState<User?>
 ) {
     Box(
         modifier = Modifier
@@ -172,136 +180,7 @@ fun PostScreen(
                     .padding(horizontal = 10.dp)
             )
             Spacer(modifier = Modifier.height(30.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
-            ) {
-                Column() {
-                    Box(
-                        modifier = Modifier
-                            .border(
-                                width = 2.dp,
-                                color = Color(49, 52, 57),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .width(150.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(
-                                    id = if (darkmode.value) R.drawable.zip else R.drawable.zipdark
-                                ),
-                                contentDescription = "Add",
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Adicionar Zip",
-                                color = Color(49, 52, 57),
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Box(
-                        modifier = Modifier
-                            .border(
-                                width = 2.dp,
-                                color = Color(49, 52, 57),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .width(150.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(
-                                    id = if (darkmode.value) R.drawable.pdf else R.drawable.pdfdark
-                                ),
-                                contentDescription = "Add",
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Adicionar PDF",
-                                color = Color(49, 52, 57),
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                }
-                Column() {
-                    Box(
-                        modifier = Modifier
-                            .border(
-                                width = 2.dp,
-                                color = Color(49, 52, 57),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .width(150.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(
-                                    id = if (darkmode.value) R.drawable.addimg else R.drawable.addimgdark
-                                ),
-                                contentDescription = "Add",
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Adicionar Imagem",
-                                color = Color(49, 52, 57),
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Box(
-                        modifier = Modifier
-                            .border(
-                                width = 2.dp,
-                                color = Color(49, 52, 57),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .width(150.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(
-                                    id = if (darkmode.value) R.drawable.etcdark else R.drawable.etc
-                                ),
-                                contentDescription = "Add",
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .padding(start = 2.dp, top = 2.dp, bottom = 2.dp)
-                            )
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "Adicionar Outros",
-                                color = Color(49, 52, 57),
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                }
-            }
+
             val context = LocalContext.current
             //val postRepository = PostRepository(context)
             Column(
@@ -332,18 +211,36 @@ fun PostScreen(
                             modifier = Modifier
                                 //.size(40.dp)
                                 .clickable {
-                                    // IMPLEMENTAR AQUI
-//                                    if (titulo.value != "" && disciplina.value != "" && descricao.value != "") {
-//                                        val post = Post(
-//                                            id = 0,
-//                                            user = user.value,
-//                                            titulo = titulo.value,
-//                                            disciplina = disciplina.value,
-//                                            descricao = descricao.value
-//                                        )
-//                                        postRepository.salvar(post)
-//                                    }
-                                    navController.navigate("home")
+                                    var novoDocumento: Documento = Documento(
+                                        documentoVerificado = "NAO",
+                                        nomeDocumento = titulo.value,
+                                        areaEstudoDocumento = disciplina.value,
+                                        autor = user.value!!.nomeEstudante,
+                                        propostaEstudo = descricao.value
+                                    )
+
+                                    var call = RetrofitFactory()
+                                        .getPostService()
+                                        .postDocumento(novoDocumento)
+
+                                    call.enqueue(object : Callback<Documento> {
+                                        override fun onResponse(
+                                            call: Call<Documento>,
+                                            response: Response<Documento>
+                                        ) {
+                                            Log.i("FIAP", "onResponse: ${response.body()}")
+                                            navController.navigate("Home")
+                                        }
+
+                                        override fun onFailure(
+                                            call: Call<Documento>,
+                                            t: Throwable
+                                        ) {
+                                            Log.i("FIAP", "onResponse: ${t.message}")
+
+                                        }
+
+                                    })
                                 }
                         ) {
                             Row(
@@ -378,85 +275,6 @@ fun PostScreen(
                 }
             }
         }
-
-//        Row(
-//            verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(100.dp)
-//                .align(alignment = Alignment.BottomStart),
-//            horizontalArrangement = Arrangement.SpaceAround
-//        ) {
-//            Box(
-//                contentAlignment = Alignment.Center,
-//                modifier = Modifier
-//                    .size(40.dp)
-//                    .clickable {}
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.person),
-//                    contentDescription = "Person",
-//                    modifier = Modifier
-//                        .size(20.dp)
-//                )
-//            }
-//            Box(
-//                contentAlignment = Alignment.Center,
-//                modifier = Modifier
-//                    .size(40.dp)
-//                    .clickable {}
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.search),
-//                    contentDescription = "Search",
-//                    modifier = Modifier
-//                        .size(20.dp)
-//                )
-//            }
-//            Box(
-//                contentAlignment = Alignment.Center,
-//                modifier = Modifier
-//                    .size(40.dp)
-//                    .clickable {
-//                        navController.navigate("post")
-//                    }
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.add),
-//                    contentDescription = "Add",
-//                    modifier = Modifier
-//                        .size(20.dp)
-//                )
-//            }
-//            Box(
-//                contentAlignment = Alignment.Center,
-//                modifier = Modifier
-//                    .size(40.dp)
-//                    .clickable {}
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.list),
-//                    contentDescription = "List",
-//                    modifier = Modifier
-//                        .size(20.dp)
-//                )
-//            }
-//            Box(
-//                contentAlignment = Alignment.Center,
-//                modifier = Modifier
-//                    .size(40.dp)
-//                    .clickable {
-//                        navController.navigate("home")
-//                    }
-//            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.home),
-//                    contentDescription = "Home",
-//                    modifier = Modifier
-//                        .size(20.dp)
-//                )
-//            }
-//        }
         Navigation(navController = navController, darkmode = darkmode, admin = admin)
     }
 }

@@ -16,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -33,12 +35,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+var ListaUsers by mutableStateOf(listOf<User?>(null))
+
 @Composable
 
 fun LoginScreen(
     navController: NavController,
     darkmode: MutableState<Boolean>,
-    admin: MutableState<Boolean>, user: MutableState<String>
+    admin: MutableState<Boolean>,
+    user: MutableState<User?>
 ) {
     Box(
         modifier = Modifier
@@ -112,7 +117,20 @@ fun LoginScreen(
                             response: Response<List<User>>
                         ) {
                             Log.i("FIAP", "onResponse: ${response.body()}")
-                            navController.navigate("Home")
+                            ListaUsers = response.body()!!
+                            if(ListaUsers[0] !== null){
+                                var newUser: User = User(
+                                    nomeEstudante = ListaUsers[0]!!.nomeEstudante,
+                                    tipoUsuario = ListaUsers[0]!!.tipoUsuario,
+                                    areaInteresse = ListaUsers[0]!!.areaInteresse,
+                                    senhaEstudante = ListaUsers[0]!!.senhaEstudante,
+                                    documentoEstudante = ListaUsers[0]!!.documentoEstudante,
+                                    idEstudante = ListaUsers[0]!!.idEstudante,
+                                    ultimoLogin = ListaUsers[0]!!.ultimoLogin
+                                )
+                                user.value = newUser
+                                navController.navigate("home")
+                            }
                         }
 
                         override fun onFailure(call: Call<List<User>>, t: Throwable) {
@@ -134,10 +152,6 @@ fun LoginScreen(
                 .width(120.dp)
                 .height(40.dp)
                 .clickable {
-                    if (login.value == "admin") {
-                        admin.value = true
-                    }
-                    user.value = login.value
                     navController.navigate("register");
                 }) {
                 Text(

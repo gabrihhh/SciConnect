@@ -32,12 +32,14 @@ import br.com.fiap.sciconnect.model.Documento
 import br.com.fiap.sciconnect.components.Header
 import br.com.fiap.sciconnect.components.LetterAvatar
 import br.com.fiap.sciconnect.components.Navigation
+import br.com.fiap.sciconnect.model.User
 
 @Composable
 fun HomeScreen(
     navController: NavController,
     darkmode: MutableState<Boolean>,
-    admin: MutableState<Boolean>
+    admin: MutableState<Boolean>,
+    user: MutableState<User?>
 ) {
     Box(
         modifier = Modifier
