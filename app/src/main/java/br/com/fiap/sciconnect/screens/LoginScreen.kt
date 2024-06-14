@@ -1,5 +1,6 @@
 package br.com.fiap.sciconnect.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,6 +26,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
+import br.com.fiap.sciconnect.model.User
+import br.com.fiap.sciconnect.model.UserLogin
+import br.com.fiap.sciconnect.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
 
@@ -90,11 +97,30 @@ fun LoginScreen(
                 .width(120.dp)
                 .height(40.dp)
                 .clickable {
-                if (login.value == "admin") {
-                    admin.value = true
-                }
-                user.value = login.value
-                navController.navigate("home")
+                    var newUser: UserLogin = UserLogin(
+                        login = login.value,
+                        senha = password.value
+                    )
+
+                    var call = RetrofitFactory()
+                        .getLoginService()
+                        .postLogin(newUser)
+
+                    call.enqueue(object : Callback<List<User>> {
+                        override fun onResponse(
+                            call: Call<List<User>>,
+                            response: Response<List<User>>
+                        ) {
+                            Log.i("FIAP", "onResponse: ${response.body()}")
+                            navController.navigate("Home")
+                        }
+
+                        override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                            Log.i("FIAP", "onResponse: ${t.message}")
+
+                        }
+
+                    })
             }) {
                 Text(
                     text = "Entrar",
