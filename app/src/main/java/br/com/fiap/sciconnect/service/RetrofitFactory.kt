@@ -16,4 +16,20 @@ class RetrofitFactory {
         return retrofitFactory.create(UserService::class.java)
     }
 
+    fun getPostService(): PostService{
+        return retrofitFactory.create(PostService::class.java)
+    }
+
+    fun getLoginService(): LoginService{
+        return retrofitFactory.create(LoginService::class.java)
+    }
+
+    fun getHomeService(): HomeService{
+        return retrofitFactory.create(HomeService::class.java)
+    }
+
+    fun getColaboradorService(): ColaboradorService{
+        return retrofitFactory.create(ColaboradorService::class.java)
+    }
+
 }
