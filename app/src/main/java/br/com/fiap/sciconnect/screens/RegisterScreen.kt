@@ -1,5 +1,6 @@
 package br.com.fiap.sciconnect.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,6 +33,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
+import br.com.fiap.sciconnect.model.User
+import br.com.fiap.sciconnect.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
 fun RegisterScreen(navController: NavController) {
@@ -155,7 +161,33 @@ fun RegisterScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color(94,147,89), shape = RoundedCornerShape(10.dp))
                     .height(50.dp)
-                    .width(200.dp),
+                    .width(200.dp)
+                    .clickable {
+
+                        var newUser:User = User(
+                            documentoEstudante = cpf.value,
+                            areaInteresse = curso.value,
+                            nomeEstudante = nome.value,
+                            tipoUsuario = selectedOption.toString(),
+                            senhaEstudante = senha.value
+                        )
+
+                        var call = RetrofitFactory()
+                            .getUsersService()
+                            .postUser(newUser)
+
+                        call.enqueue(object : Callback<User> {
+                            override fun onResponse(call: Call<User>, response: Response<User>) {
+                                Log.i("FIAP", "onResponse: ${response.body()}")
+                                navController.navigate("login")
+                            }
+
+                            override fun onFailure(call: Call<User>, t: Throwable) {
+                                Log.i("FIAP", "onResponse: ${t.message}")
+                            }
+
+                        })
+                    },
                 contentAlignment = Alignment.Center
             ){
                 Text(
