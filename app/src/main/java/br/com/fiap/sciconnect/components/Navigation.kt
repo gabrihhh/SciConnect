@@ -94,38 +94,21 @@ fun Navigation(
                         .size(20.dp)
                 )
             }
-            if(user.value!!.tipoUsuario === "colaborador"){
+            if(user.value!!.tipoUsuario == "colaborador"){
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .size(40.dp)
                         .clickable {navController.navigate("await")}
                 ) {
-//                val context = LocalContext.current
-//                //val postRepository = PostRepository(context)
-//                var listaAwaitingPosts = remember {
-//                    mutableStateOf(postRepository.listarAwaitingPosts())
-//                }
-//                if(listaAwaitingPosts.value.size > 0 && admin.value == true){
-//                    Image(
-//                        painter = painterResource(
-//                            id = if (darkmode.value) R.drawable.listdark else R.drawable.list_notification
-//                        ),
-//                        contentDescription = "List",
-//                        modifier = Modifier
-//                            .size(28.dp)
-//                    )
-//                }else{
-//                    Image(
-//                        painter = painterResource(
-//                            id = if (darkmode.value) R.drawable.listdark else R.drawable.list
-//                        ),
-//                        contentDescription = "List",
-//                        modifier = Modifier
-//                            .size(20.dp)
-//                    )
-//                }
-
+                    Image(
+                        painter = painterResource(
+                            id = if (darkmode.value) R.drawable.listdark else R.drawable.list
+                        ),
+                        contentDescription = "List",
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
                 }
             }
             Box(

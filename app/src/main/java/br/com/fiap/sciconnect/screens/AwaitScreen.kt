@@ -18,8 +18,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -37,7 +39,7 @@ import br.com.fiap.sciconnect.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+var listaAwaitingPosts by mutableStateOf<List<Documento>?>(null)
 @Composable
 fun AwaitScreen(navController: NavController,darkmode: MutableState<Boolean>, admin: MutableState<Boolean>,user:MutableState<User?>){
     Box(modifier = Modifier
@@ -45,28 +47,6 @@ fun AwaitScreen(navController: NavController,darkmode: MutableState<Boolean>, ad
     ){
         Header(darkmode = darkmode, admin= admin)
         val scroll = rememberScrollState()
-        val context = LocalContext.current
-        var listaAwaitingPosts = remember { mutableStateOf<List<Documento>?>(null)}
-
-        var call = RetrofitFactory()
-            .getColaboradorService()
-            .getDocumentosPendentes()
-
-        call.enqueue(object : Callback<List<Documento>> {
-            override fun onResponse(
-                call: Call<List<Documento>>,
-                response: Response<List<Documento>>
-            ) {
-                listaAwaitingPosts.value = response.body()!!
-            }
-
-            override fun onFailure(call: Call<List<Documento>>, t: Throwable) {
-                Log.i("FIAP", "onResponse: ${t.message}")
-
-            }
-
-        })
-
         Column(
             modifier = Modifier
                 .padding(vertical = 100.dp)
@@ -76,7 +56,28 @@ fun AwaitScreen(navController: NavController,darkmode: MutableState<Boolean>, ad
                 )
                 .verticalScroll(scroll)
         ){
-            PostLazyList(listaAwaitingPosts.value!!, darkmode)
+            var call = RetrofitFactory()
+                .getColaboradorService()
+                .getDocumentosPendentes()
+
+            call.enqueue(object : Callback<List<Documento>> {
+                override fun onResponse(
+                    call: Call<List<Documento>>,
+                    response: Response<List<Documento>>
+                ) {
+                    Log.i("FIAP", "onResponse sucesso: ${response.body()}")
+                    listaAwaitingPosts = response.body()!!
+                }
+
+                override fun onFailure(call: Call<List<Documento>>, t: Throwable) {
+
+                    Log.i("FIAP", "onResponse: ${t.message}")
+                    listaAwaitingPosts = null
+
+                }
+
+            })
+            PostLazyList(listaAwaitingPosts!!, darkmode)
         }
         Navigation(navController,darkmode = darkmode, admin= admin, user = user)
     }
@@ -85,6 +86,7 @@ fun AwaitScreen(navController: NavController,darkmode: MutableState<Boolean>, ad
 fun PostLazyList(posts: List<Documento>, darkmode: MutableState<Boolean>) {
     LazyColumn {
         items(posts) {item ->
+            Log.i("FIAP", "dentro do lazy list: ${item}")
             Box(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
