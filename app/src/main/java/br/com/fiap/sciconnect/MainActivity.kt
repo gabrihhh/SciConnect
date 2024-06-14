@@ -16,6 +16,7 @@ import br.com.fiap.sciconnect.screens.AwaitScreen
 import br.com.fiap.sciconnect.screens.LoginScreen
 import br.com.fiap.sciconnect.screens.HomeScreen
 import br.com.fiap.sciconnect.screens.PostScreen
+import br.com.fiap.sciconnect.screens.RegisterScreen
 import br.com.fiap.sciconnect.ui.theme.SciConnectTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,12 +38,13 @@ class MainActivity : ComponentActivity() {
                     }
                     NavHost(
                         navController = navController,
-                        startDestination = "login"
+                        startDestination = "register"
                     ){
                         composable(route = "login"){ LoginScreen(navController,darkmode, admin, user) }
                         composable(route = "home"){ HomeScreen(navController,darkmode, admin) }
                         composable(route = "post"){ PostScreen(navController,darkmode, admin, user) }
                         composable(route = "await"){ AwaitScreen(navController, darkmode, admin)}
+                        composable(route = "register"){ RegisterScreen(navController)}
                     }
                 }
             }

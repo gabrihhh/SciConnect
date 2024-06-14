@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -82,14 +83,41 @@ fun LoginScreen(
 //                KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                .background(Color(49,52,57), shape = RoundedCornerShape(10.dp))
+                .width(120.dp)
+                .height(40.dp)
+                .clickable {
                 if (login.value == "admin") {
                     admin.value = true
                 }
                 user.value = login.value
                 navController.navigate("home")
             }) {
-                Text(text = "Entrar")
+                Text(
+                    text = "Entrar",
+                    color = Color.White
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier
+                .background(Color(94,147,89), shape = RoundedCornerShape(10.dp))
+                .width(120.dp)
+                .height(40.dp)
+                .clickable {
+                    if (login.value == "admin") {
+                        admin.value = true
+                    }
+                    user.value = login.value
+                    navController.navigate("register");
+                }) {
+                Text(
+                    text = "Criar conta",
+                    color = Color.White
+                )
             }
 
         }
