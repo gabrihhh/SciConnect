@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.com.fiap.sciconnect.database.repository.PostRepository
 import br.com.fiap.sciconnect.components.Header
 import br.com.fiap.sciconnect.components.Navigation
 
@@ -26,14 +25,14 @@ fun AwaitScreen(navController: NavController,darkmode: MutableState<Boolean>, ad
         Header(darkmode = darkmode, admin= admin)
         //val scroll = rememberScrollState()
         val context = LocalContext.current
-        val postRepository = PostRepository(context)
-        var listaAwaitingPosts = remember {
-           if (admin.value == true){
-               mutableStateOf(postRepository.listarAwaitingPosts())
-           }else{
-               mutableStateOf(postRepository.listarPosts())
-           }
-        }
+        //val postRepository = PostRepository(context)
+//        var listaAwaitingPosts = remember {
+//           if (admin.value == true){
+//               mutableStateOf(postRepository.listarAwaitingPosts())
+//           }else{
+//               mutableStateOf(postRepository.listarPosts())
+//           }
+//        }
         Column(
             modifier = Modifier
                 .padding(vertical = 100.dp)
@@ -43,7 +42,7 @@ fun AwaitScreen(navController: NavController,darkmode: MutableState<Boolean>, ad
                 )
                 //.verticalScroll(scroll)
         ){
-            PostLazyList(listaAwaitingPosts.value, darkmode, postRepository, navController)
+            //PostLazyList(listaAwaitingPosts.value, darkmode, postRepository, navController)
         }
         Navigation(navController,darkmode = darkmode, admin= admin)
     }

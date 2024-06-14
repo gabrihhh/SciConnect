@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -27,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,11 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.sciconnect.R
-import br.com.fiap.sciconnect.components.Header
 import br.com.fiap.sciconnect.components.Navigation
-import br.com.fiap.sciconnect.database.repository.PostRepository
-import br.com.fiap.sciconnect.model.Post
-
 
 @Composable
 fun PostScreen(
@@ -310,7 +303,7 @@ fun PostScreen(
                 }
             }
             val context = LocalContext.current
-            val postRepository = PostRepository(context)
+            //val postRepository = PostRepository(context)
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
@@ -339,16 +332,17 @@ fun PostScreen(
                             modifier = Modifier
                                 //.size(40.dp)
                                 .clickable {
-                                    if (titulo.value != "" && disciplina.value != "" && descricao.value != "") {
-                                        val post = Post(
-                                            id = 0,
-                                            user = user.value,
-                                            titulo = titulo.value,
-                                            disciplina = disciplina.value,
-                                            descricao = descricao.value
-                                        )
-                                        postRepository.salvar(post)
-                                    }
+                                    // IMPLEMENTAR AQUI
+//                                    if (titulo.value != "" && disciplina.value != "" && descricao.value != "") {
+//                                        val post = Post(
+//                                            id = 0,
+//                                            user = user.value,
+//                                            titulo = titulo.value,
+//                                            disciplina = disciplina.value,
+//                                            descricao = descricao.value
+//                                        )
+//                                        postRepository.salvar(post)
+//                                    }
                                     navController.navigate("home")
                                 }
                         ) {
